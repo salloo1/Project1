@@ -1,14 +1,418 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <title>Pro Point Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jQuery 3.6 CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <!-- Font Awesome 5 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+  <!-- ALL CODE ON THIS PAGE WAS WRITTEN, REVIEWED, AND EDITED BY SAJJAD ALLOO :) -->
+
+  
+<style>
+	/* Woah CSS comments are weird */
+	/* Global styles for the background of the webpage */
+body {
+	background-color: black;
+	background-image: url(https://raw.githubusercontent.com/salloo1/Pro/main/Background2.jpg);
+	background-size: cover;
+	background-repeat: no-repeat; 
+	position: relative; /* Needed for absolute positioning of shooting star */
+}
+/* Global styles for div tags */
+div{
+	background-color: black;
+    border-bottom-left-radius: 20px; /* Rounded bottom-left corner */
+    border-bottom-right-radius: 20px; /* Rounded bottom-right corner */
+}
+/* Set main container infront of meteors */
+.container{
+	z-index: 1;
+}
+/* Set style for buttons on page */
+.btn.btn-primary {
+color: black; 
+background-color: white; 
+border: 2px #474F7A;
+transition: all 0.3s;
+}
+/* Set hover function for buttons */
+.btn.btn-primary:hover {
+transform: translateY(-3px); 
+background-color: #474F7A; 
+color: white;
+}
+/* Center button 3 at the bottom of the page */
+#btn_3 {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* Meteorites that shoot from left to right periodically */
+.meteorite1 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px; 
+    z-index: 0; 
+    animation: shoot 12s linear infinite;
+	animation-delay: 0s;
+}
+.meteorite2 {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    width: 20px;
+    height: 20px; 
+    z-index: 0; 
+	opacity: 0;
+    animation: shoot 13s linear infinite;
+	animation-delay: 9s;
+	animation-fill-mode: forwards;
+}
+
+.meteorite3 {
+    position: fixed;
+    top: 20%;
+    left: 40%;
+    width: 20px;
+    height: 20px; 
+    z-index: 0; 
+	opacity: 0;
+    animation: shoot 15s linear infinite;
+	animation-delay: 15s;
+	animation-fill-mode: forwards;
+}
+/* Meteorite animation */
+
+@keyframes shoot {
+  0% {
+    transform: translate(-100vw, -30vh);
+	opacity: 0;
+  }
+  5%{
+    opacity: 1;
+  }
+  100% {
+    transform: translate(50vw, 100vh);
+  }
+}
+
+</style>
+  
 </head>
 <body>
-   <h1>Project1</h1> 
-   <p>Example </p>
-   <p>Example </p>
-   <p>Example </p>
-   <p>Example </p>
+	<!--HTML comments are weird too--> 
+	<!--Sets up main div in the center of the page. Text is set to white because global div is black--> 
+	<div class="container" id=container style="width: 550px; float: center; z-index: 1;">
+		<!--Looked up Font Awesome 5 and saw they already had a meteor glyph. Fit perfectly so no need for an additional library--> 
+		<h1 style="color: white;"> <i class="fas fa-meteor" ></i> Meteorite Landings </h1>
+
+<!--Drop down form for user to choose unit type. Text styled in white, background styled in black-->
+		<form style="color: white;  ">
+			<label for="units">Choose a unit:</label>
+
+			<select style="color: white; background-color: black; "  name="units" id="units">
+			  <option value="kg">kg</option>
+			  <option value="g">g</option>
+			  <option value="oz">oz</option>
+			  <option value="lb">lb</option>
+			</select> <br>
+
+			<!--Header for input box. Styled in white--> 
+			<label for="textInput1" class="form-label" id="formInput1" style="color: white;">
+				Enter a year to see number of meteorite incidences and average mass:
+			</label>
+			<!--Shortened input box. Styled in white--> 
+			<input  type="text" class="form-control" id="textInput1" style="width: 100px; color: white; background-color: black;"> <br>
+			
+			<!--Buttons to run each function. Styled in white with black text.--> 
+			<input type="button" class="btn btn-primary" id="btn_1" value="Overall Average">
+			<input type="button" class="btn btn-primary" id="btn_2" value="Specific Year Average">
+		</form>
+		<br>
+		<!--Black padding around text for readability on background. Text styled in white with black background--> 
+		<div style="color: white;" background-color: black; padding: 10px; id="textDisplayed1"></div>
+		<div  style="color: white;" background-color: black; padding: 10px; id="textDisplayed2"></div>
+		<div style="color: white;" background-color: black; padding: 10px; id="textDisplayed3"></div>
+	</div>
+
+	<div class="meteorite1">
+            <img src="https://raw.githubusercontent.com/salloo1/Pro/main/meteorite.svg" alt="meteorite1" style="width: 20px; height: 20px;">
+	</div>	
+	<div class="meteorite2">
+		<img src="https://raw.githubusercontent.com/salloo1/Pro/main/meteorite.svg" alt="meteorite2" style="width: 20px; height: 20px;">
+	</div>	
+	<div class="meteorite3">
+		<img src="https://raw.githubusercontent.com/salloo1/Pro/main/meteorite.svg" alt="meteorite3" style="width: 30px; height: 30px;">
+	</div>	
+
+	<input type="button" class="btn btn-primary" id="btn_3" value="Learn More about the Solar System">
+
+
 </body>
-</html>
+<script>
+
+
+// Some notes about the dataset:
+// This dataset contains values below 1490 and above 2013
+// I picked these constraints because each entry before 1490 is over 100 years apart and each entry over 2013 is from a year in the future
+// I didnt want to clean the dataset because its more fun to do it this way  
+// When you test the functionality of the specific year average, I suggest using these values:
+//1490, 1495, or 1600 for message #1
+//1500 or 1520 for message #2
+//1812, 1980, or 2013 for message #3
+
+	"use strict";
+
+	function getAverage(){
+
+console.clear();
+console.log("Data Source: https://www.kaggle.com/datasets/nasa/meteorite-landings");
+console.log("Some notes about the dataset:")
+console.log("This dataset contains values below 1490 and above 2013")
+console.log("I picked these constraints because each entry before 1490 is over 100 years apart and each entry over 2013 is from a year in the future")
+console.log("I didnt want to clean the dataset because its more fun to do it this way") 
+console.log("When you test the functionality of the specific year average, I suggest using these values:")
+console.log("1490, 1495, or 1600 for message #1")
+console.log("1500 or 1520 for message #2")
+console.log("1812, 1980, or 2013 for message #3")
+	// clear textDisplayed2 so only one message shows
+	$("#textDisplayed2").html("")
+	// Grab and store data from Github repository 
+	$.getJSON("https://raw.githubusercontent.com/salloo1/Pro/main/meteorite-landings.json",function(result){
+
+	// console.log result for viewing
+		console.log(result)
+
+	// initiate variables
+		var totalCount = 0;
+		var totalMass = 0;
+		var numMissing = 0;
+		var massDisplayed = 0;
+		var units = "";
+	// Clear textDisplayed1 each time function is run
+		$("#textDisplayed1").html("");
+
+		// Count the number of meteorites and the mass of those that have valid mass values
+		for(let i = 0; i < result.length; i++){
+			if(parseInt(result[i]["year"]) >=1490){
+			totalCount++
+			if (!isNaN(parseInt(result[i]["mass"]))) {
+                totalMass += parseInt(result[i]["mass"]);
+	}
+}
+
+// Keep a counter of meteorites that have missing values
+	else{
+		numMissing++
+	}
+}
+
+//User can change the units if they want
+	if($("#units").val() == "kg"){
+massDisplayed = ((totalMass/(totalCount-numMissing))/1000).toFixed(2)
+units = "kg"
+	}
+	else if($("#units").val() == "g"){
+massDisplayed = ((totalMass/(totalCount-numMissing))).toFixed(2)
+units = "g"
+	}
+else if($("#units").val() == "oz"){	
+massDisplayed = ((totalMass/(totalCount-numMissing))*0.035274).toFixed(2)
+units = "oz"
+	}
+else if($("#units").val() == "lb"){
+massDisplayed = ((totalMass/(totalCount-numMissing))*0.00220462).toFixed(2)
+units = "lb"
+	}
+
+// Calculate the squared differences from the mean
+let holder = 0;
+let squaredDifferencesSum = 0;
+for (let i = 0; i < result.length; i++) {
+	if (!isNaN(parseInt(result[i]["mass"]))) {
+    holder = (result[i]["mass"] - massDisplayed);
+
+	if($("#units").val() == "kg"){
+	holder = (holder/1000)
+	}
+	else if($("#units").val() == "g"){
+		holder = (holder)
+	}
+else if($("#units").val() == "oz"){	
+	holder = (holder*0.035274)
+	}
+else if($("#units").val() == "lb"){
+	holder = (holder*0.00220462)
+	}
+}
+	squaredDifferencesSum += holder * holder;
+}
+
+//taking into account that some entries are missing from the totalMass by subtracting numMIssing
+var variance = squaredDifferencesSum / (totalCount - numMissing);
+
+// Calculate the standard deviation (square root of variance)
+var standardDeviation = Math.sqrt(variance).toFixed(2);
+
+// Display message of count of meteorites and average weight
+	$("#textDisplayed1").append("Since the year 1490: <ul><li> " + totalCount + " meteorites have hit earth. </li><li> Each had an average mass of "+
+	 massDisplayed + units + ". </li><li> The standard deviation for mass is " + standardDeviation + units + ". </li></ul> <div> Hypothesis: As I examine meteorite landing data, I propose that there is a correlation between the increase in recorded meteorite events and the advancement of technology. Over time, the number of documented meteorite landings will likely rise due to the enhancement of meteorite detection techniques and technological capabilities. </div>")
+	})
+}
+
+
+
+// Separate functions for readability
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function getAverageYear(){
+console.clear();
+console.log("Data Source: https://www.kaggle.com/datasets/nasa/meteorite-landings");
+// Clear textDisplayed1 and textDisplayed2 each time function is run
+	$("#textDisplayed1").html("")
+	$("#textDisplayed2").html("")
+
+// initiate variables
+	let year = ''
+	let totalMassYear = 0;
+	let totalCountYear = 0;
+	let numMissingYear = 0;
+	let massDisplayed = 0;
+	let units = "";
+	let soloName = "";
+	let holderYear = 0;
+	let squaredDifferencesSumYear = 0;
+	let minYear = 0;
+	let maxYear =0;
+//Error trapping for year
+var inputYear = parseInt($("#textInput1").val());
+if(!isNaN(inputYear) && inputYear >= 1490 && inputYear <= 2013){
+    year = inputYear;
+    $("#textDisplayed2").html("");
+}
+	else {
+   	 $("#textDisplayed2").html("Bad data. Enter a year between 1490 and 2013.");
+	}
+// Grab and store data from Github repository 
+	$.getJSON("https://raw.githubusercontent.com/salloo1/Pro/main/meteorite-landings.json",function(result){
+	
+// Count the number of meteorites and the mass of those that have valid mass values
+maxYear = result[0]["mass"];
+minYear = result[0]["mass"];
+for (let i = 0; i < result.length; i++) {
+			if (parseInt(result[i]["year"]) == year){
+				totalCountYear++
+				soloName = result[i]["name"]
+//console.log() each object for readers viewing (mainly to check solo meteorites)
+				console.log((result)[i]);
+if(result[i]["mass"] < minYear && result[i]["mass"] != 0){
+	minYear = result[i]["mass"];
+}
+if(result[i]["mass"]> maxYear){
+	maxYear = result[i]["mass"];
+}
+				if (!isNaN(parseInt(result[i]["mass"]))) {
+                	totalMassYear += parseInt(result[i]["mass"]);
+					holderYear = (result[i]["mass"] - massDisplayed);
+					if($("#units").val() == "kg"){
+						holderYear = (holderYear/1000)
+						minYear = (minYear/1000)
+						maxYear = (maxYear/1000)
+	}	
+					else if($("#units").val() == "g"){
+						holderYear = (holderYear)
+						minYear = (minYear)
+						maxYear = (maxYear)
+	}
+					else if($("#units").val() == "oz"){	
+						holderYear = (holderYear*0.035274)
+						minYear = (minYear*0.035274)
+						maxYear = (maxYear*0.035274)
+	}
+					else if($("#units").val() == "lb"){
+						holderYear = (holderYear*0.00220462)
+						minYear = (minYear*0.00220462)
+						maxYear = (maxYear*0.00220462)
+	}
+	squaredDifferencesSumYear += holderYear * holderYear;
+			}
+			else{
+				numMissingYear++
+			}
+	}
+
+}
+if(totalCountYear>2){
+let varianceYear = squaredDifferencesSumYear / (totalCountYear - numMissingYear);
+
+// Calculate the standard deviation (square root of variance)
+var standardDeviationYear = Math.sqrt(varianceYear).toFixed(2);
+
+console.log("Standard Deviation:", standardDeviationYear);
+}
+//User can change the units if they want
+if($("#units").val() == "kg"){
+
+massDisplayed = ((totalMassYear/(totalCountYear-numMissingYear))/1000)
+units = "kg"
+	}
+	else if($("#units").val() == "g"){
+massDisplayed = ((totalMassYear/(totalCountYear-numMissingYear)))
+units = "g"
+}
+else if($("#units").val() == "oz"){
+
+massDisplayed = ((totalMassYear/(totalCountYear-numMissingYear))*0.035274)
+units = "oz"
+}
+else if($("#units").val() == "lb"){
+
+massDisplayed = ((totalMassYear/(totalCountYear-numMissingYear))*0.00220462)
+units = "lb"
+}
+
+
+// Change the message displayed 
+//.toFixed(3) was used here instead of earlier when calculating massDisplayed because of rounding errors I encountered. Same errors occured when using .toFixed(2)
+if(totalCountYear == 1){
+$("#textDisplayed2").append("In the year " + year + ": <ul><li> Only " + totalCountYear + 
+	" meteorite was observed to have hit Earth.</li><li> Its name was " + soloName + ".</li><li>It weighed " +  massDisplayed.toFixed(3) + units +".</li> </ul> <div> Hypothesis: As I examine meteorite landing data, I propose that there is a correlation between the increase in recorded meteorite events and the advancement of technology. Over time, the number of documented meteorite landings will likely rise due to the enhancement of meteorite detection techniques and technological capabilities. </div>")
+}
+ else if(totalCountYear == 0 &&  $("#textInput1").val() != "" && $("#textDisplayed2").html() !="Bad data. Enter a year between 1490 and 2013."){
+	$("#textDisplayed2").append("According to our data, no meteorites hit Earth this year.")
+}
+else if( parseInt($("#textInput1").val()) >= 1 && $("#textDisplayed2").html() !="Bad data. Enter a year between 1490 and 2013." ){
+	$("#textDisplayed2").append("In the year " + year + ": <ul><li>" + totalCountYear +
+		 " meteorites hit Earth.</li><li> Each had an average mass of "+ massDisplayed.toFixed(3) + units +".</li><li> The standard deviation of mass is " + standardDeviationYear + units + 
+			". </li> <li> The smallest meteor weighed " + minYear + units +"</li> <li> The heaviest meteor weighed " + maxYear + units +"</li> </ul> <div> Hypothesis: As I examine meteorite landing data, I propose that there is a correlation between the increase in recorded meteorite events and the advancement of technology. Over time, the number of documented meteorite landings will likely rise due to the enhancement of meteorite detection techniques and technological capabilities. </div>")
+	
+}
+})
+}
+	
+	// this is the click event handler.  You should not edit this code in this assignment.
+	$('#btn_1').click(function(){
+		getAverage();
+	})
+	$('#btn_2').click(function(){
+		getAverageYear();
+	})
+	$('#btn_3').click(function(){
+  location.href = '/Users/sajjadmac/Desktop/Spring 2024/Web App Development/VS Code/ProPoint Project/ERM2.html';
+});
+	
+	</script>
+	</html>
